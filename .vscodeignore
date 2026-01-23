@@ -1,0 +1,17 @@
+.vscode/**
+.vscode-test/**
+extension/**
+public/**
+src/**
+tests/**
+index.html
+.gitignore
+.yarnrc
+pnpm-*.yaml
+**/tsconfig*
+**/.eslintrc.json
+**/.eslintcache
+**/*.map
+**/*.ts
+**/.vscode-test.*
+**/*.cpp

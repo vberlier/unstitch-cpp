@@ -1,0 +1,3 @@
+onlyBuiltDependencies:
+  - esbuild
+  - web-tree-sitter

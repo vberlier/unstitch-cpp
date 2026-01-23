@@ -1,0 +1,97 @@
+{
+  "name": "unstitch-cpp",
+  "displayName": "Unstitch C++",
+  "publisher": "vberlier",
+  "description": "Nodal projection for C++ source code",
+  "version": "0.0.1-beta.1",
+  "license": "MIT",
+  "homepage": "https://github.com/vberlier/unstitch-cpp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vberlier/unstitch-cpp.git"
+  },
+  "keywords": [
+    "unstitch",
+    "tree-sitter"
+  ],
+  "bugs": {
+    "url": "https://github.com/vberlier/unstitch-cpp/issues"
+  },
+  "categories": [
+    "Other"
+  ],
+  "type": "module",
+  "private": true,
+  "preview": true,
+  "main": "dist/extension/index.js",
+  "engines": {
+    "vscode": "^1.106.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "unstitch-cpp.editor",
+        "displayName": "Unstitch C++ Editor",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*"
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "test": "vitest",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build",
+    "lint": "eslint . --fix --cache",
+    "format": "prettier --write --experimental-cli src/",
+    "vscode:prepublish": "pnpm run build"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^2.0.1",
+    "@reactive-vscode/vueuse": "1.0.0-beta.2",
+    "@tomjs/vite-plugin-vscode": "^7.0.0",
+    "@tsconfig/node24": "^24.0.3",
+    "@types/jsdom": "^27.0.0",
+    "@types/node": "^24.10.4",
+    "@types/vscode": "^1.106.0",
+    "@types/vscode-webview": "^1.57.5",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "@vitest/eslint-plugin": "^1.6.5",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.8.1",
+    "@vueuse/components": "^14.1.0",
+    "@vueuse/core": "^14.1.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-vue": "~10.6.2",
+    "jiti": "^2.6.1",
+    "jsdom": "^27.4.0",
+    "npm-run-all2": "^8.0.4",
+    "pinia": "^3.0.4",
+    "prettier": "3.7.4",
+    "reactive-vscode": "1.0.0-beta.2",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.0",
+    "vite-plugin-vue-devtools": "^8.0.5",
+    "vitest": "^4.0.16",
+    "vue": "^3.5.26",
+    "vue-tsc": "^3.2.2",
+    "web-tree-sitter": "^0.26.3"
+  }
+}
