@@ -1,6 +1,6 @@
 import type { QueryCapture, Node } from 'web-tree-sitter'
 
-interface Outline {
+export interface Outline {
   tag: string
   node: Node
   index: number
@@ -25,14 +25,14 @@ function buildOutline(root: Node, captures: QueryCapture[]) {
   return outline
 }
 
-interface Reference {
+export interface Reference {
   type: 'reference'
   item: Outline
   stitch?: Stitch
   declaration?: Declaration
 }
 
-interface Declaration {
+export interface Declaration {
   type: 'declaration'
   item: Outline
   stitch?: Stitch
@@ -45,7 +45,7 @@ interface Declaration {
   references: Reference[]
 }
 
-interface Stitch {
+export interface Stitch {
   type: 'stitch'
   item: Outline
   key: string
@@ -64,6 +64,7 @@ function resolveOutline(
   declarations: Map<number, Declaration>,
   references: Map<number, number>,
   stitches: Stitch[],
+  stitchIndex: Map<string, Stitch[]>,
   scope: Record<string, number> = {},
   outerStitch?: Stitch,
 ) {
@@ -107,7 +108,15 @@ function resolveOutline(
       resolved.stitch = currentStitch
       currentStitch?.inner.push(resolved)
       if (item.parent?.tag === 'function' && item === item.parent.children[0]) {
-        resolveOutline(item.parent, declarations, references, stitches, scope, currentStitch)
+        resolveOutline(
+          item.parent,
+          declarations,
+          references,
+          stitches,
+          stitchIndex,
+          scope,
+          currentStitch,
+        )
       }
     } else if (item.tag === 'reference') {
       const index = scope[item.node.text]
@@ -136,6 +145,13 @@ function resolveOutline(
         stitch.coordinates = [parseInt(x), parseInt(y)]
         stitch.label = label.trim() || undefined
         stitch.key = stitch.coordinates.join(' ')
+
+        let registered = stitchIndex.get(stitch.key)
+        if (!registered) {
+          registered = []
+          stitchIndex.set(stitch.key, registered)
+        }
+        registered.push(stitch)
       } else {
         m = annotation.match(/(\w.*)/)
         stitch.label = (m && m[0].trim()) || undefined
@@ -151,7 +167,7 @@ function resolveOutline(
       }
       currentStitch = stitch
     } else {
-      resolveOutline(item, declarations, references, stitches, scope, currentStitch)
+      resolveOutline(item, declarations, references, stitches, stitchIndex, scope, currentStitch)
     }
   }
 
@@ -435,7 +451,8 @@ export function buildProjection(root: Node, captures: QueryCapture[]) {
   const declarations = new Map<number, Declaration>()
   const references = new Map<number, number>()
   const stitches: Stitch[] = []
-  resolveOutline(outline, declarations, references, stitches)
+  const stitchIndex = new Map<string, Stitch[]>()
+  resolveOutline(outline, declarations, references, stitches, stitchIndex)
 
   const graphNodes = new Map<string, GraphNode>()
   for (const stitch of stitches) {
@@ -447,7 +464,7 @@ export function buildProjection(root: Node, captures: QueryCapture[]) {
   const graphLinks = new Map<string, GraphLink>()
   buildLinks(graphLinks, graphNodes)
 
-  return { declarations, references, stitches, outline, graphNodes, graphLinks }
+  return { declarations, references, stitches, stitchIndex, outline, graphNodes, graphLinks }
 }
 
 function mangle(name: string, n: number, tag: string) {

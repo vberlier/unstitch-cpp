@@ -26,9 +26,15 @@ interface GraphLink {
   targets: GraphNodePortLocation[]
 }
 
-type WebviewMessage = {
-  type: 'ready'
-}
+type WebviewMessage =
+  | {
+      type: 'ready'
+    }
+  | {
+      type: 'move'
+      graphNodeKey: string
+      newCoordinates: [number, number]
+    }
 
 type ExtensionMessage = {
   type: 'update'

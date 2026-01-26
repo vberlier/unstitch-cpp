@@ -1,14 +1,18 @@
 import * as vscode from 'vscode'
 import { defineExtension, onScopeDispose, useDisposable } from 'reactive-vscode'
-import { Parser, Language, Tree, Edit, Query } from 'web-tree-sitter'
+import { Parser, Language, Tree, Edit, Query, Point } from 'web-tree-sitter'
 
 import { getWebviewHtml } from 'virtual:vscode'
 import { useCustomTextEditor } from './composables/useCustomTextEditor'
-import { buildProjection } from './projection'
+import { buildProjection, Stitch } from './projection'
 import { QUERY } from './query'
 
 function asRowColumn({ line, character }: vscode.Position) {
   return { row: line, column: character }
+}
+
+function asPosition({ row, column }: Point) {
+  return new vscode.Position(row, column)
 }
 
 let parserInitialized = false
@@ -36,6 +40,8 @@ const { activate, deactivate } = defineExtension((context) => {
       query?.delete()
       tree?.delete()
     })
+
+    let stitchIndex = new Map<string, Stitch[]>()
 
     init()
 
@@ -67,11 +73,30 @@ const { activate, deactivate } = defineExtension((context) => {
 
       if (tree && query) {
         const projection = buildProjection(tree.rootNode, query.captures(tree.rootNode))
+        stitchIndex = projection.stitchIndex
         graphNodes = Object.fromEntries(projection.graphNodes.entries())
         graphLinks = Object.fromEntries(projection.graphLinks.entries())
       }
 
       send({ type: 'update', graphNodes, graphLinks })
+    }
+
+    function updateGraphNodeCoordinates(key: string, [x, y]: [number, number]) {
+      const edit = new vscode.WorkspaceEdit()
+
+      for (const { item, label } of stitchIndex.get(key) ?? []) {
+        let newStitch = `//// ${x} ${y}`
+        if (label) {
+          newStitch += ` ${label}`
+        }
+        edit.replace(
+          document.uri,
+          new vscode.Range(asPosition(item.node.startPosition), asPosition(item.node.endPosition)),
+          newStitch,
+        )
+      }
+
+      vscode.workspace.applyEdit(edit)
     }
 
     useDisposable(
@@ -112,6 +137,9 @@ const { activate, deactivate } = defineExtension((context) => {
         switch (message.type) {
           case 'ready':
             updateWebview()
+            break
+          case 'move':
+            updateGraphNodeCoordinates(message.graphNodeKey, message.newCoordinates)
             break
         }
       }),

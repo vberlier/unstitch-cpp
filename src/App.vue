@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useEventListener, watchDeep } from '@vueuse/core'
 
 import { send, webviewApi } from './vscode'
+import { UNIT_X, UNIT_Y } from './units'
 import EditorRoot from './components/EditorRoot.vue'
 import EditorNode from './components/EditorNode.vue'
 import EditorLink from './components/EditorLink.vue'
@@ -14,7 +15,15 @@ watchDeep(state, (newState) => {
 
 const graphNodes = ref<Record<string, GraphNode>>({})
 const graphLinks = ref<Record<string, GraphLink>>({})
+
 const graphNodesDrag = ref<Record<string, [number, number]>>({})
+const graphNodesToFlush: string[] = []
+
+function flushGraphNodes() {
+  for (const key of graphNodesToFlush) {
+    graphNodesDrag.value[key] = [0, 0]
+  }
+}
 
 onMounted(() => {
   send({ type: 'ready' })
@@ -24,6 +33,7 @@ useEventListener(window, 'message', (event) => {
   const message = event.data as ExtensionMessage
   switch (message.type) {
     case 'update':
+      flushGraphNodes()
       graphNodes.value = message.graphNodes
       graphLinks.value = message.graphLinks
       break
@@ -34,7 +44,7 @@ const isDraggingNode = ref('')
 let lastX = 0
 let lastY = 0
 
-function onDragNode(key: string, x: number, y: number, el: HTMLElement) {
+function onDragNode(key: string, x: number, y: number) {
   isDraggingNode.value = key
   lastX = x
   lastY = y
@@ -58,6 +68,27 @@ useEventListener(window, 'mousemove', (e: MouseEvent) => {
 })
 
 useEventListener(window, 'mouseup', () => {
+  if (!isDraggingNode.value) return
+
+  const [dragX, dragY] = graphNodesDrag.value[isDraggingNode.value] ?? [0, 0]
+  graphNodesToFlush.push(isDraggingNode.value)
+
+  const graphNode = graphNodes.value[isDraggingNode.value]
+  const [baseX, baseY] = graphNode?.coordinates ?? [0, 0]
+
+  const deltaX = Math.round(dragX / UNIT_X)
+  const deltaY = Math.round(dragY / UNIT_Y)
+
+  const newX = baseX + deltaX
+  const newY = baseY + deltaY
+
+  const taken = `${newX} ${newY}` in graphNodes.value
+  if (!taken) {
+    send({ type: 'move', graphNodeKey: isDraggingNode.value, newCoordinates: [newX, newY] })
+  } else {
+    flushGraphNodes()
+  }
+
   isDraggingNode.value = ''
 })
 </script>

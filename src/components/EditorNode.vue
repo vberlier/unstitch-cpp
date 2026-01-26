@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useTemplateRef } from 'vue'
+import { computed } from 'vue'
 
 import { UNIT_X, UNIT_Y, UNIT_X_PX, UNIT_Y_PX } from '../units'
 
@@ -11,7 +11,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  drag: [key: string, x: number, y: number, el: HTMLElement]
+  drag: [key: string, x: number, y: number]
 }>()
 
 const collapse = computed(
@@ -31,11 +31,11 @@ const transformStyle = computed(() =>
     : {},
 )
 
-const collapseRef = useTemplateRef('collapse')
-const boxRef = useTemplateRef('box')
+const shadowOffsetX = computed(() => `${Math.round(props.dragX / UNIT_X) * UNIT_X - props.dragX}px`)
+const shadowOffsetY = computed(() => `${Math.round(props.dragY / UNIT_Y) * UNIT_Y - props.dragY}px`)
 
 function handleMousedown(e: MouseEvent) {
-  emit('drag', props.graphNode.key, e.clientX, e.clientY, (collapseRef.value || boxRef.value)!)
+  emit('drag', props.graphNode.key, e.clientX, e.clientY)
 }
 </script>
 
@@ -46,10 +46,10 @@ function handleMousedown(e: MouseEvent) {
     :style="transformStyle"
     @mousedown="handleMousedown"
   >
-    <div v-if="collapse" class="content collapse" :class="alignClasses" ref="collapse">
+    <div v-if="collapse" class="content collapse" :class="alignClasses">
       {{ props.graphNode.title }}
     </div>
-    <div v-else class="content box" :class="alignClasses" ref="box">
+    <div v-else class="content box" :class="alignClasses">
       <div class="title truncate" :title="props.graphNode.title">
         {{ props.graphNode.title }}
       </div>
@@ -98,6 +98,7 @@ function handleMousedown(e: MouseEvent) {
 .wrapper.dragging {
   cursor: grabbing;
   --foreground: var(--vscode-list-activeSelectionForeground);
+  z-index: 10;
 }
 
 .content {
@@ -106,6 +107,22 @@ function handleMousedown(e: MouseEvent) {
   background-color: var(--background);
   line-height: v-bind(UNIT_Y_PX);
   border-radius: calc(0.5 * v-bind(UNIT_Y_PX));
+}
+
+.content::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--foreground);
+  border-radius: calc(0.5 * v-bind(UNIT_Y_PX));
+  transform: translate(v-bind(shadowOffsetX), v-bind(shadowOffsetY));
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .collapse {
