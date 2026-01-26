@@ -130,14 +130,14 @@ function resolveOutline(
         inner: [],
       }
       const annotation = item.node.text
-      let m = annotation.match(/(-?\d+)\s+(-?\d+)(.*)$/)
+      let m = annotation.match(/(-?\d+)\s+(-?\d+)(.*)/)
       if (m) {
         const [_, x, y, label] = m
         stitch.coordinates = [parseInt(x), parseInt(y)]
         stitch.label = label.trim() || undefined
         stitch.key = stitch.coordinates.join(' ')
       } else {
-        m = annotation.match(/(\w.*)$/)
+        m = annotation.match(/(\w.*)/)
         stitch.label = (m && m[0].trim()) || undefined
       }
       if (!currentStitch) {
