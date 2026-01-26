@@ -15,6 +15,7 @@ interface GraphNode {
 }
 
 interface GraphNodePortLocation {
+  key: string
   coordinates: [number, number]
   index: number
 }

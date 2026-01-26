@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 
 import { UNIT_X, UNIT_Y, UNIT_X_PX, UNIT_Y_PX } from '../units'
 
-const props = defineProps<{ graphNode: GraphNode }>()
+const props = defineProps<{
+  graphNode: GraphNode
+  dragX: number
+  dragY: number
+  dragging: boolean
+}>()
+
+const emit = defineEmits<{
+  drag: [key: string, x: number, y: number, el: HTMLElement]
+}>()
 
 const collapse = computed(
   () => props.graphNode.inputs.length === 0 && props.graphNode.outputs.length === 1,
@@ -17,18 +26,30 @@ const alignClasses = computed(() => ({
 const transformStyle = computed(() =>
   props.graphNode.coordinates
     ? {
-        transform: `translate(${props.graphNode.coordinates[0] * UNIT_X}px, ${props.graphNode.coordinates[1] * UNIT_Y}px)`,
+        transform: `translate(${props.graphNode.coordinates[0] * UNIT_X + props.dragX}px, ${props.graphNode.coordinates[1] * UNIT_Y + props.dragY}px)`,
       }
     : {},
 )
+
+const collapseRef = useTemplateRef('collapse')
+const boxRef = useTemplateRef('box')
+
+function handleMousedown(e: MouseEvent) {
+  emit('drag', props.graphNode.key, e.clientX, e.clientY, (collapseRef.value || boxRef.value)!)
+}
 </script>
 
 <template>
-  <div class="wrapper" :style="transformStyle">
-    <div v-if="collapse" class="content collapse" :class="alignClasses">
+  <div
+    class="wrapper"
+    :class="{ dragging: props.dragging }"
+    :style="transformStyle"
+    @mousedown="handleMousedown"
+  >
+    <div v-if="collapse" class="content collapse" :class="alignClasses" ref="collapse">
       {{ props.graphNode.title }}
     </div>
-    <div v-else class="content box" :class="alignClasses">
+    <div v-else class="content box" :class="alignClasses" ref="box">
       <div class="title truncate" :title="props.graphNode.title">
         {{ props.graphNode.title }}
       </div>
@@ -63,10 +84,20 @@ const transformStyle = computed(() =>
 .wrapper {
   position: absolute;
   width: v-bind(UNIT_X_PX);
+  cursor: grab;
+  user-select: none;
   will-change: transform;
   --foreground: var(--vscode-button-secondaryForeground);
   --background: var(--vscode-button-secondaryBackground);
-  --hoverForeground: var(--vscode-list-activeSelectionForeground);
+}
+
+.wrapper:hover {
+  --background: var(--vscode-button-secondaryHoverBackground);
+}
+
+.wrapper.dragging {
+  cursor: grabbing;
+  --foreground: var(--vscode-list-activeSelectionForeground);
 }
 
 .content {
@@ -75,12 +106,6 @@ const transformStyle = computed(() =>
   background-color: var(--background);
   line-height: v-bind(UNIT_Y_PX);
   border-radius: calc(0.5 * v-bind(UNIT_Y_PX));
-  cursor: pointer;
-  user-select: none;
-}
-
-.content:hover {
-  color: var(--hoverForeground);
 }
 
 .collapse {
@@ -157,6 +182,7 @@ const transformStyle = computed(() =>
   position: relative;
   height: calc(0.5 * v-bind(UNIT_Y_PX));
   margin: calc(0.5 * v-bind(UNIT_Y_PX)) 0;
+  cursor: auto;
 }
 
 .data {

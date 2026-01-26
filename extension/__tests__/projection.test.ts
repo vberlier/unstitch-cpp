@@ -3185,6 +3185,7 @@ test('example', () => {
         "4 9 Enter_0": {
           "type": "execution",
           "origin": {
+            "key": "4 9",
             "coordinates": [
               4,
               9
@@ -3193,6 +3194,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "3 6",
               "coordinates": [
                 3,
                 6
@@ -3200,6 +3202,7 @@ test('example', () => {
               "index": 0
             },
             {
+              "key": "3 11",
               "coordinates": [
                 3,
                 11
@@ -3211,6 +3214,7 @@ test('example', () => {
         "4 9 Reset_0": {
           "type": "execution",
           "origin": {
+            "key": "4 9",
             "coordinates": [
               4,
               9
@@ -3219,6 +3223,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "3 19",
               "coordinates": [
                 3,
                 19
@@ -3230,6 +3235,7 @@ test('example', () => {
         "4 9 counter_0": {
           "type": "data",
           "origin": {
+            "key": "4 9",
             "coordinates": [
               4,
               9
@@ -3241,6 +3247,7 @@ test('example', () => {
         "4 1 vehicleMovement_0Pure": {
           "type": "data",
           "origin": {
+            "key": "4 1",
             "coordinates": [
               4,
               1
@@ -3249,6 +3256,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "5 8",
               "coordinates": [
                 5,
                 8
@@ -3260,6 +3268,7 @@ test('example', () => {
         "4 4 throttle_0Pure": {
           "type": "data",
           "origin": {
+            "key": "4 4",
             "coordinates": [
               4,
               4
@@ -3268,6 +3277,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "5 8",
               "coordinates": [
                 5,
                 8
@@ -3279,6 +3289,7 @@ test('example', () => {
         "5 8": {
           "type": "execution",
           "origin": {
+            "key": "5 8",
             "coordinates": [
               5,
               8
@@ -3287,6 +3298,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "4 9",
               "coordinates": [
                 4,
                 9
@@ -3298,6 +3310,7 @@ test('example', () => {
         "1 1 throttle_0Pure": {
           "type": "data",
           "origin": {
+            "key": "1 1",
             "coordinates": [
               1,
               1
@@ -3306,6 +3319,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "2 1",
               "coordinates": [
                 2,
                 1
@@ -3317,6 +3331,7 @@ test('example', () => {
         "2 1 sum_0Pure": {
           "type": "data",
           "origin": {
+            "key": "2 1",
             "coordinates": [
               2,
               1
@@ -3325,6 +3340,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "3 6",
               "coordinates": [
                 3,
                 6
@@ -3336,6 +3352,7 @@ test('example', () => {
         "3 6": {
           "type": "execution",
           "origin": {
+            "key": "3 6",
             "coordinates": [
               3,
               6
@@ -3344,6 +3361,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "1 6",
               "coordinates": [
                 1,
                 6
@@ -3351,6 +3369,7 @@ test('example', () => {
               "index": 0
             },
             {
+              "key": "1 11",
               "coordinates": [
                 1,
                 11
@@ -3362,6 +3381,7 @@ test('example', () => {
         "1 17 throttle_0Pure": {
           "type": "data",
           "origin": {
+            "key": "1 17",
             "coordinates": [
               1,
               17
@@ -3370,6 +3390,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "2 17",
               "coordinates": [
                 2,
                 17
@@ -3381,6 +3402,7 @@ test('example', () => {
         "2 17 sum_0Pure": {
           "type": "data",
           "origin": {
+            "key": "2 17",
             "coordinates": [
               2,
               17
@@ -3389,6 +3411,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "3 11",
               "coordinates": [
                 3,
                 11
@@ -3400,6 +3423,7 @@ test('example', () => {
         "3 11": {
           "type": "execution",
           "origin": {
+            "key": "3 11",
             "coordinates": [
               3,
               11
@@ -3408,6 +3432,7 @@ test('example', () => {
           },
           "targets": [
             {
+              "key": "1 6",
               "coordinates": [
                 1,
                 6
@@ -3415,6 +3440,7 @@ test('example', () => {
               "index": 1
             },
             {
+              "key": "1 11",
               "coordinates": [
                 1,
                 11

@@ -1,31 +1,19 @@
 <script setup lang="ts">
-import { ref, computed, useTemplateRef, watchEffect } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import { useEventListener } from '@vueuse/core'
 
-import { webviewApi } from '../vscode'
+import type { ViewportState } from '../vscode'
 
-const state = webviewApi.getState()
+const model = defineModel<ViewportState>({ required: true })
 
 const viewport = useTemplateRef('viewport')
 const canvas = useTemplateRef('canvas')
-
-const scale = ref(state?.scale ?? 1)
-const translateX = ref(state?.translateX ?? 0)
-const translateY = ref(state?.translateY ?? 0)
-
-watchEffect(() => {
-  webviewApi.setState({
-    scale: scale.value,
-    translateX: translateX.value,
-    translateY: translateY.value,
-  })
-})
 
 const MIN_SCALE = 0.25
 const MAX_SCALE = 4
 
 const transformStyle = computed(() => ({
-  transform: `translate(${translateX.value}px, ${translateY.value}px) scale(${scale.value})`,
+  transform: `translate(${model.value.translateX}px, ${model.value.translateY}px) scale(${model.value.scale})`,
   transformOrigin: '0 0',
 }))
 
@@ -47,8 +35,8 @@ useEventListener(window, 'mousemove', (e: MouseEvent) => {
   const dx = e.clientX - lastX
   const dy = e.clientY - lastY
 
-  translateX.value += dx
-  translateY.value += dy
+  model.value.translateX += dx
+  model.value.translateY += dy
 
   lastX = e.clientX
   lastY = e.clientY
@@ -71,15 +59,15 @@ useEventListener(
     const cursorY = e.clientY - rect.top
 
     const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9
-    const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale.value * zoomFactor))
+    const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, model.value.scale * zoomFactor))
 
-    const scaleRatio = newScale / scale.value
+    const scaleRatio = newScale / model.value.scale
 
-    translateX.value = cursorX - scaleRatio * (cursorX - translateX.value)
+    model.value.translateX = cursorX - scaleRatio * (cursorX - model.value.translateX)
 
-    translateY.value = cursorY - scaleRatio * (cursorY - translateY.value)
+    model.value.translateY = cursorY - scaleRatio * (cursorY - model.value.translateY)
 
-    scale.value = newScale
+    model.value.scale = newScale
   },
   { passive: false },
 )
@@ -101,6 +89,7 @@ useEventListener(
   right: 0;
   bottom: 0;
   overflow: hidden;
+  cursor: move;
 }
 
 .canvas {

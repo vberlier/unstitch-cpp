@@ -1,12 +1,12 @@
 /// <reference types="@types/vscode-webview" />
 
-interface WebviewState {
+export interface ViewportState {
   scale: number
   translateX: number
   translateY: number
 }
 
-export const webviewApi = acquireVsCodeApi<WebviewState>()
+export const webviewApi = acquireVsCodeApi<ViewportState>()
 
 export function send(message: WebviewMessage) {
   webviewApi.postMessage(message)

@@ -383,14 +383,14 @@ function cleanGraph(graphNodes: Map<string, GraphNode>) {
 }
 
 function buildLinks(graphLinks: Map<string, GraphLink>, graphNodes: Map<string, GraphNode>) {
-  for (const graphNode of graphNodes.values()) {
+  for (const [key, graphNode] of graphNodes.entries()) {
     if (graphNode.coordinates) {
       for (let i = 0; i < graphNode.inputs.length; i++) {
         const input = graphNode.inputs[i]
         if (input.type === 'execution' && input.link) {
           graphLinks.set(input.link, {
             type: input.type,
-            origin: { coordinates: graphNode.coordinates, index: i },
+            origin: { key, coordinates: graphNode.coordinates, index: i },
             targets: [],
           })
         }
@@ -400,19 +400,21 @@ function buildLinks(graphLinks: Map<string, GraphLink>, graphNodes: Map<string, 
         if (output.type === 'data' && output.link) {
           graphLinks.set(output.link, {
             type: output.type,
-            origin: { coordinates: graphNode.coordinates, index: i },
+            origin: { key, coordinates: graphNode.coordinates, index: i },
             targets: [],
           })
         }
       }
     }
   }
-  for (const graphNode of graphNodes.values()) {
+  for (const [key, graphNode] of graphNodes.entries()) {
     if (graphNode.coordinates) {
       for (let i = 0; i < graphNode.inputs.length; i++) {
         const input = graphNode.inputs[i]
         if (input.type === 'data' && input.link) {
-          graphLinks.get(input.link)?.targets.push({ coordinates: graphNode.coordinates, index: i })
+          graphLinks
+            .get(input.link)
+            ?.targets.push({ key, coordinates: graphNode.coordinates, index: i })
         }
       }
       for (let i = 0; i < graphNode.outputs.length; i++) {
@@ -420,7 +422,7 @@ function buildLinks(graphLinks: Map<string, GraphLink>, graphNodes: Map<string, 
         if (output.type === 'execution' && output.link) {
           graphLinks
             .get(output.link)
-            ?.targets.push({ coordinates: graphNode.coordinates, index: i })
+            ?.targets.push({ key, coordinates: graphNode.coordinates, index: i })
         }
       }
     }
