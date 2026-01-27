@@ -3,7 +3,7 @@
   "displayName": "Unstitch C++",
   "publisher": "vberlier",
   "description": "Nodal projection for C++ source code",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.2",
   "license": "MIT",
   "homepage": "https://github.com/vberlier/unstitch-cpp",
   "repository": {
