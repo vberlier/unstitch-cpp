@@ -1,5 +1,7 @@
 # Unstitch C++
 
+https://marketplace.visualstudio.com/items?itemName=vberlier.unstitch-cpp
+
 > Command Palette > View: Reopen Editor With... > Unstitch C++ Editor
 
 Nodal projection for C++ source code.
