@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import { UNIT_Y_PX } from '../units'
+
 const props = defineProps<{
   type: 'data' | 'execution'
   origin: [number, number]
@@ -38,7 +40,7 @@ const path = computed(() => {
 .interact {
   fill: none;
   stroke: transparent;
-  stroke-width: 16;
+  stroke-width: v-bind(UNIT_Y_PX);
   cursor: pointer;
 }
 

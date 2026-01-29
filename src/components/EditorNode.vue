@@ -72,10 +72,14 @@ function handleMousedown(e: MouseEvent) {
       </div>
     </div>
     <div class="inputPorts">
-      <div v-for="(input, i) in props.graphNode.inputs" :class="input.type" :key="i"></div>
+      <div v-for="(input, i) in props.graphNode.inputs" class="inputPort" :key="i">
+        <div :class="input.type"></div>
+      </div>
     </div>
     <div class="outputPorts">
-      <div v-for="(output, i) in props.graphNode.outputs" :class="output.type" :key="i"></div>
+      <div v-for="(output, i) in props.graphNode.outputs" class="outputPort" :key="i">
+        <div :class="output.type"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -183,27 +187,36 @@ function handleMousedown(e: MouseEvent) {
 .inputPorts,
 .outputPorts {
   position: absolute;
-  top: 32px;
+  top: 38px;
 }
 
 .inputPorts {
-  left: calc(2 * v-bind(UNIT_Y_PX) - 6px);
+  left: calc(1.5 * v-bind(UNIT_Y_PX));
 }
 
 .outputPorts {
-  right: calc(2 * v-bind(UNIT_Y_PX) - 6px);
+  right: calc(1.5 * v-bind(UNIT_Y_PX));
 }
 
-.data,
-.execution {
+.inputPort,
+.outputPort {
   position: relative;
-  height: calc(0.5 * v-bind(UNIT_Y_PX));
-  margin: calc(0.5 * v-bind(UNIT_Y_PX)) 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: v-bind(UNIT_Y_PX);
+  height: v-bind(UNIT_Y_PX);
   cursor: auto;
+
+  &:hover {
+    transform: scale(1.5);
+  }
 }
 
 .data {
-  width: calc(0.5 * v-bind(UNIT_Y_PX));
+  position: relative;
+  height: calc(0.6 * v-bind(UNIT_Y_PX));
+  width: calc(0.6 * v-bind(UNIT_Y_PX));
   border-radius: 50%;
   box-sizing: border-box;
   border: 1px var(--foreground) solid;
@@ -211,10 +224,13 @@ function handleMousedown(e: MouseEvent) {
 }
 
 .execution {
+  position: relative;
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-left: 14px solid var(--foreground);
+  left: 6px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 8px solid var(--foreground);
+  box-shadow: -8px 0 var(--foreground);
 }
 </style>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useEventListener, watchDeep } from '@vueuse/core'
 
 import { send, webviewApi } from './vscode'
 import { UNIT_X, UNIT_Y } from './units'
 import EditorRoot from './components/EditorRoot.vue'
 import EditorNode from './components/EditorNode.vue'
-import EditorLink from './components/EditorLink.vue'
+import EditorConnection from './components/EditorConnection.vue'
 
 const state = ref(webviewApi.getState() ?? { scale: 1, translateX: 0, translateY: 0 })
 watchDeep(state, (newState) => {
@@ -91,16 +91,47 @@ useEventListener(window, 'mouseup', () => {
 
   isDraggingNode.value = ''
 })
+
+function getPixelCoordinates(
+  { key, coordinates: [x, y], index }: GraphNodePortLocation,
+  margin: number,
+  drag: Record<string, [number, number]>,
+): [number, number] {
+  const [dragX, dragY] = drag[key] ?? [0, 0]
+  return [x * UNIT_X + margin + dragX, (y + index + 8.5) * UNIT_Y + dragY]
+}
+
+const nodeMargin = 2 * UNIT_Y
+const connections = computed(() =>
+  Object.entries(graphLinks.value).flatMap(([key, graphLink]) =>
+    graphLink.targets.map((targetLocation, i) => {
+      let origin = getPixelCoordinates(graphLink.origin, nodeMargin, graphNodesDrag.value)
+      let target = getPixelCoordinates(targetLocation, nodeMargin, graphNodesDrag.value)
+
+      if (graphLink.type === 'data') {
+        origin[0] += UNIT_X - 2 * nodeMargin
+      } else {
+        target[0] += UNIT_X - 2 * nodeMargin
+        const temp = origin
+        origin = target
+        target = temp
+      }
+
+      return { key: `${key} ${i}`, type: graphLink.type, origin, target }
+    }),
+  ),
+)
 </script>
 
 <template>
   <EditorRoot v-model="state">
     <svg class="links">
-      <EditorLink
-        v-for="[k, v] in Object.entries(graphLinks)"
-        :key="k"
-        :graph-link="v"
-        :drag="graphNodesDrag"
+      <EditorConnection
+        v-for="{ key, type, origin, target } in connections"
+        :type="type"
+        :origin="origin"
+        :target="target"
+        :key="key"
       />
     </svg>
     <EditorNode
