@@ -70,15 +70,17 @@ function resolveOutline(
 ) {
   scope = { ...scope }
 
-  const scopeItems = outline.children.flatMap((item) =>
-    item.tag === 'function' && item.children[0].tag === 'declaration'
-      ? [item.children[0]]
-      : item.tag === 'parameters'
-        ? item.parent?.tag === 'function'
-          ? item.children
-          : []
-        : [item],
-  )
+  const scopeItems = outline.children
+    .flatMap((item) => (item.tag === 'statement' ? item.children : [item]))
+    .flatMap((item) =>
+      item.tag === 'function' && item.children[0].tag === 'declaration'
+        ? [item.children[0]]
+        : item.tag === 'parameters'
+          ? item.parent?.tag === 'function'
+            ? item.children
+            : []
+          : [item],
+    )
 
   if (outline.tag === 'function') {
     scopeItems.shift()
@@ -172,7 +174,7 @@ function resolveOutline(
   }
 
   if (currentStitch && currentStitch !== outerStitch) {
-    currentStitch.endIndex = outline.node.lastNamedChild!.endIndex
+    currentStitch.endIndex = outline.children.at(-1)!.node.endIndex
   }
 }
 

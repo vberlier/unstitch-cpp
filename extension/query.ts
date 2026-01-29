@@ -1,4 +1,8 @@
 export const QUERY = `
+  (translation_unit (_) @statement)
+  (_ "{" (_) @statement "}")
+  (_ "{" "}") @scope
+
   (
     (comment) @stitch
     (#match? @stitch "^////")
@@ -9,8 +13,6 @@ export const QUERY = `
 
   (_ declarator: [(identifier) (field_identifier)] @declaration)
   (reference_declarator [(identifier) (field_identifier)] @declaration)
-
-  (_ "{" "}") @scope
 
   (expression/identifier) @reference
   (assignment_expression left: (identifier) @reference)

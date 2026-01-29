@@ -8681,389 +8681,74 @@ test('example', () => {
         "index": 0,
         "children": [
           {
-            "tag": "scope",
-            "node": "L4",
-            "index": 125,
-            "children": [
-              {
-                "tag": "declaration",
-                "node": "L6",
-                "index": 162,
-                "children": []
-              },
-              {
-                "tag": "parameters",
-                "node": "L6",
-                "index": 185,
-                "children": []
-              }
-            ]
+            "tag": "statement",
+            "node": "L1",
+            "index": 0,
+            "children": []
           },
           {
-            "tag": "scope",
-            "node": "L10",
-            "index": 225,
+            "tag": "statement",
+            "node": "L3",
+            "index": 94,
             "children": [
               {
-                "tag": "declaration",
-                "node": "L11",
-                "index": 236,
-                "children": []
-              },
-              {
-                "tag": "parameters",
-                "node": "L11",
-                "index": 252,
-                "children": [
-                  {
-                    "tag": "declaration",
-                    "node": "L11",
-                    "index": 259,
-                    "children": []
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "tag": "scope",
-            "node": "L15",
-            "index": 289,
-            "children": [
-              {
-                "tag": "declaration",
-                "node": "L16",
-                "index": 301,
-                "children": []
-              },
-              {
-                "tag": "declaration",
-                "node": "L17",
-                "index": 333,
-                "children": []
-              },
-              {
-                "tag": "stitch",
-                "node": "L19",
-                "index": 357,
-                "children": []
-              },
-              {
-                "tag": "declaration",
-                "node": "L20",
-                "index": 407,
-                "children": []
-              },
-              {
                 "tag": "scope",
-                "node": "L20",
-                "index": 440,
+                "node": "L4",
+                "index": 125,
                 "children": [
                   {
-                    "tag": "scope",
-                    "node": "L22",
-                    "index": 469,
-                    "children": [
-                      {
-                        "tag": "stitch",
-                        "node": "L23",
-                        "index": 483,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L24",
-                        "index": 508,
-                        "children": []
-                      }
-                    ]
-                  },
-                  {
-                    "tag": "scope",
-                    "node": "L26",
-                    "index": 553,
-                    "children": [
-                      {
-                        "tag": "stitch",
-                        "node": "L27",
-                        "index": 567,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L28",
-                        "index": 593,
-                        "children": []
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "tag": "stitch",
-                "node": "L32",
-                "index": 636,
-                "children": []
-              },
-              {
-                "tag": "declaration",
-                "node": "L33",
-                "index": 687,
-                "children": []
-              },
-              {
-                "tag": "scope",
-                "node": "L33",
-                "index": 720,
-                "children": [
-                  {
-                    "tag": "scope",
-                    "node": "L35",
-                    "index": 749,
-                    "children": [
-                      {
-                        "tag": "stitch",
-                        "node": "L36",
-                        "index": 763,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L37",
-                        "index": 788,
-                        "children": []
-                      }
-                    ]
-                  },
-                  {
-                    "tag": "scope",
-                    "node": "L39",
-                    "index": 833,
-                    "children": [
-                      {
-                        "tag": "stitch",
-                        "node": "L40",
-                        "index": 847,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L41",
-                        "index": 873,
-                        "children": []
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "tag": "stitch",
-                "node": "L45",
-                "index": 916,
-                "children": []
-              },
-              {
-                "tag": "declaration",
-                "node": "L46",
-                "index": 967,
-                "children": []
-              },
-              {
-                "tag": "scope",
-                "node": "L46",
-                "index": 1000,
-                "children": [
-                  {
-                    "tag": "scope",
-                    "node": "L48",
-                    "index": 1029,
-                    "children": [
-                      {
-                        "tag": "stitch",
-                        "node": "L49",
-                        "index": 1043,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L50",
-                        "index": 1068,
-                        "children": []
-                      }
-                    ]
-                  },
-                  {
-                    "tag": "scope",
-                    "node": "L52",
-                    "index": 1104,
-                    "children": [
-                      {
-                        "tag": "stitch",
-                        "node": "L53",
-                        "index": 1118,
-                        "children": []
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "tag": "stitch",
-                "node": "L57",
-                "index": 1155,
-                "children": []
-              },
-              {
-                "tag": "declaration",
-                "node": "L58",
-                "index": 1177,
-                "children": []
-              },
-              {
-                "tag": "function",
-                "node": "L60",
-                "index": 1207,
-                "children": [
-                  {
-                    "tag": "declaration",
-                    "node": "L60",
-                    "index": 1212,
-                    "children": []
-                  },
-                  {
-                    "tag": "parameters",
-                    "node": "L60",
-                    "index": 1219,
-                    "children": []
-                  },
-                  {
-                    "tag": "scope",
-                    "node": "L61",
-                    "index": 1226,
+                    "tag": "statement",
+                    "node": "L5",
+                    "index": 131,
                     "children": [
                       {
                         "tag": "declaration",
-                        "node": "L62",
-                        "index": 1240,
+                        "node": "L6",
+                        "index": 162,
                         "children": []
                       },
                       {
-                        "tag": "reference",
-                        "node": "L63",
-                        "index": 1267,
+                        "tag": "parameters",
+                        "node": "L6",
+                        "index": 185,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "statement",
+            "node": "L9",
+            "index": 202,
+            "children": [
+              {
+                "tag": "scope",
+                "node": "L10",
+                "index": 225,
+                "children": [
+                  {
+                    "tag": "statement",
+                    "node": "L11",
+                    "index": 231,
+                    "children": [
+                      {
+                        "tag": "declaration",
+                        "node": "L11",
+                        "index": 236,
                         "children": []
                       },
                       {
-                        "tag": "reference",
-                        "node": "L63",
-                        "index": 1289,
-                        "children": []
-                      },
-                      {
-                        "tag": "scope",
-                        "node": "L64",
-                        "index": 1307,
+                        "tag": "parameters",
+                        "node": "L11",
+                        "index": 252,
                         "children": [
                           {
                             "tag": "declaration",
-                            "node": "L65",
-                            "index": 1325,
-                            "children": []
-                          },
-                          {
-                            "tag": "reference",
-                            "node": "L65",
-                            "index": 1339,
-                            "children": []
-                          },
-                          {
-                            "tag": "stitch",
-                            "node": "L67",
-                            "index": 1373,
-                            "children": []
-                          },
-                          {
-                            "tag": "stitch",
-                            "node": "L69",
-                            "index": 1396,
-                            "children": []
-                          },
-                          {
-                            "tag": "declaration",
-                            "node": "L70",
-                            "index": 1434,
-                            "children": []
-                          },
-                          {
-                            "tag": "reference",
-                            "node": "L70",
-                            "index": 1458,
-                            "children": []
-                          },
-                          {
-                            "tag": "stitch",
-                            "node": "L72",
-                            "index": 1490,
-                            "children": []
-                          },
-                          {
-                            "tag": "declaration",
-                            "node": "L73",
-                            "index": 1517,
-                            "children": []
-                          },
-                          {
-                            "tag": "reference",
-                            "node": "L73",
-                            "index": 1534,
-                            "children": []
-                          },
-                          {
-                            "tag": "stitch",
-                            "node": "L75",
-                            "index": 1559,
-                            "children": []
-                          },
-                          {
-                            "tag": "declaration",
-                            "node": "L76",
-                            "index": 1616,
-                            "children": []
-                          },
-                          {
-                            "tag": "reference",
-                            "node": "L76",
-                            "index": 1641,
-                            "children": []
-                          },
-                          {
-                            "tag": "declaration",
-                            "node": "L77",
-                            "index": 1682,
-                            "children": []
-                          },
-                          {
-                            "tag": "reference",
-                            "node": "L77",
-                            "index": 1700,
-                            "children": []
-                          },
-                          {
-                            "tag": "reference",
-                            "node": "L78",
-                            "index": 1728,
-                            "children": []
-                          },
-                          {
-                            "tag": "reference",
-                            "node": "L78",
-                            "index": 1768,
-                            "children": []
-                          },
-                          {
-                            "tag": "stitch",
-                            "node": "L80",
-                            "index": 1799,
+                            "node": "L11",
+                            "index": 259,
                             "children": []
                           }
                         ]
@@ -9071,302 +8756,1159 @@ test('example', () => {
                     ]
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "tag": "statement",
+            "node": "L14",
+            "index": 274,
+            "children": [
               {
-                "tag": "function",
-                "node": "L84",
-                "index": 1825,
+                "tag": "scope",
+                "node": "L15",
+                "index": 289,
                 "children": [
                   {
-                    "tag": "declaration",
-                    "node": "L84",
-                    "index": 1830,
-                    "children": []
-                  },
-                  {
-                    "tag": "parameters",
-                    "node": "L84",
-                    "index": 1837,
-                    "children": []
-                  },
-                  {
-                    "tag": "scope",
-                    "node": "L85",
-                    "index": 1844,
+                    "tag": "statement",
+                    "node": "L16",
+                    "index": 295,
                     "children": [
                       {
-                        "tag": "reference",
-                        "node": "L86",
-                        "index": 1854,
+                        "tag": "declaration",
+                        "node": "L16",
+                        "index": 301,
                         "children": []
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "tag": "stitch",
-                "node": "L89",
-                "index": 1890,
-                "children": []
-              },
-              {
-                "tag": "function",
-                "node": "L90",
-                "index": 1899,
-                "children": [
-                  {
-                    "tag": "declaration",
-                    "node": "L90",
-                    "index": 1904,
-                    "children": []
                   },
                   {
-                    "tag": "parameters",
-                    "node": "L90",
-                    "index": 1920,
-                    "children": []
-                  },
-                  {
-                    "tag": "scope",
-                    "node": "L91",
-                    "index": 1927,
+                    "tag": "statement",
+                    "node": "L17",
+                    "index": 317,
                     "children": [
                       {
-                        "tag": "stitch",
-                        "node": "L92",
-                        "index": 1937,
-                        "children": []
-                      },
-                      {
                         "tag": "declaration",
-                        "node": "L93",
-                        "index": 1960,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L93",
-                        "index": 1977,
-                        "children": []
-                      },
-                      {
-                        "tag": "stitch",
-                        "node": "L95",
-                        "index": 1998,
-                        "children": []
-                      },
-                      {
-                        "tag": "declaration",
-                        "node": "L96",
-                        "index": 2021,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L96",
-                        "index": 2032,
-                        "children": []
-                      },
-                      {
-                        "tag": "declaration",
-                        "node": "L97",
-                        "index": 2062,
-                        "children": []
-                      },
-                      {
-                        "tag": "declaration",
-                        "node": "L98",
-                        "index": 2090,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L98",
-                        "index": 2102,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L98",
-                        "index": 2113,
-                        "children": []
-                      },
-                      {
-                        "tag": "stitch",
-                        "node": "L100",
-                        "index": 2132,
-                        "children": []
-                      },
-                      {
-                        "tag": "declaration",
-                        "node": "L101",
-                        "index": 2168,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L101",
-                        "index": 2186,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L102",
-                        "index": 2205,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L102",
-                        "index": 2218,
-                        "children": []
-                      },
-                      {
-                        "tag": "stitch",
-                        "node": "L104",
-                        "index": 2244,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L105",
-                        "index": 2257,
+                        "node": "L17",
+                        "index": 333,
                         "children": []
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "tag": "stitch",
-                "node": "L108",
-                "index": 2279,
-                "children": []
-              },
-              {
-                "tag": "function",
-                "node": "L109",
-                "index": 2288,
-                "children": [
-                  {
-                    "tag": "declaration",
-                    "node": "L109",
-                    "index": 2293,
-                    "children": []
                   },
                   {
-                    "tag": "parameters",
-                    "node": "L109",
-                    "index": 2309,
-                    "children": []
-                  },
-                  {
-                    "tag": "scope",
-                    "node": "L110",
-                    "index": 2316,
+                    "tag": "statement",
+                    "node": "L19",
+                    "index": 357,
                     "children": [
                       {
                         "tag": "stitch",
-                        "node": "L111",
-                        "index": 2326,
+                        "node": "L19",
+                        "index": 357,
                         "children": []
-                      },
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L20",
+                    "index": 383,
+                    "children": [
                       {
                         "tag": "declaration",
-                        "node": "L112",
-                        "index": 2350,
+                        "node": "L20",
+                        "index": 407,
                         "children": []
                       },
                       {
-                        "tag": "reference",
-                        "node": "L112",
-                        "index": 2367,
-                        "children": []
-                      },
+                        "tag": "scope",
+                        "node": "L20",
+                        "index": 440,
+                        "children": [
+                          {
+                            "tag": "statement",
+                            "node": "L21",
+                            "index": 450,
+                            "children": []
+                          },
+                          {
+                            "tag": "statement",
+                            "node": "L22",
+                            "index": 463,
+                            "children": [
+                              {
+                                "tag": "scope",
+                                "node": "L22",
+                                "index": 469,
+                                "children": [
+                                  {
+                                    "tag": "statement",
+                                    "node": "L23",
+                                    "index": 483,
+                                    "children": [
+                                      {
+                                        "tag": "stitch",
+                                        "node": "L23",
+                                        "index": 483,
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "statement",
+                                    "node": "L24",
+                                    "index": 508,
+                                    "children": [
+                                      {
+                                        "tag": "reference",
+                                        "node": "L24",
+                                        "index": 508,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "tag": "statement",
+                            "node": "L26",
+                            "index": 547,
+                            "children": [
+                              {
+                                "tag": "scope",
+                                "node": "L26",
+                                "index": 553,
+                                "children": [
+                                  {
+                                    "tag": "statement",
+                                    "node": "L27",
+                                    "index": 567,
+                                    "children": [
+                                      {
+                                        "tag": "stitch",
+                                        "node": "L27",
+                                        "index": 567,
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "statement",
+                                    "node": "L28",
+                                    "index": 593,
+                                    "children": [
+                                      {
+                                        "tag": "reference",
+                                        "node": "L28",
+                                        "index": 593,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L32",
+                    "index": 636,
+                    "children": [
                       {
                         "tag": "stitch",
-                        "node": "L114",
-                        "index": 2388,
+                        "node": "L32",
+                        "index": 636,
                         "children": []
-                      },
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L33",
+                    "index": 663,
+                    "children": [
                       {
                         "tag": "declaration",
-                        "node": "L115",
-                        "index": 2412,
+                        "node": "L33",
+                        "index": 687,
                         "children": []
                       },
                       {
-                        "tag": "reference",
-                        "node": "L115",
-                        "index": 2423,
-                        "children": []
-                      },
-                      {
-                        "tag": "declaration",
-                        "node": "L116",
-                        "index": 2453,
-                        "children": []
-                      },
-                      {
-                        "tag": "declaration",
-                        "node": "L117",
-                        "index": 2482,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L117",
-                        "index": 2494,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L117",
-                        "index": 2505,
-                        "children": []
-                      },
+                        "tag": "scope",
+                        "node": "L33",
+                        "index": 720,
+                        "children": [
+                          {
+                            "tag": "statement",
+                            "node": "L34",
+                            "index": 730,
+                            "children": []
+                          },
+                          {
+                            "tag": "statement",
+                            "node": "L35",
+                            "index": 743,
+                            "children": [
+                              {
+                                "tag": "scope",
+                                "node": "L35",
+                                "index": 749,
+                                "children": [
+                                  {
+                                    "tag": "statement",
+                                    "node": "L36",
+                                    "index": 763,
+                                    "children": [
+                                      {
+                                        "tag": "stitch",
+                                        "node": "L36",
+                                        "index": 763,
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "statement",
+                                    "node": "L37",
+                                    "index": 788,
+                                    "children": [
+                                      {
+                                        "tag": "reference",
+                                        "node": "L37",
+                                        "index": 788,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "tag": "statement",
+                            "node": "L39",
+                            "index": 827,
+                            "children": [
+                              {
+                                "tag": "scope",
+                                "node": "L39",
+                                "index": 833,
+                                "children": [
+                                  {
+                                    "tag": "statement",
+                                    "node": "L40",
+                                    "index": 847,
+                                    "children": [
+                                      {
+                                        "tag": "stitch",
+                                        "node": "L40",
+                                        "index": 847,
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "statement",
+                                    "node": "L41",
+                                    "index": 873,
+                                    "children": [
+                                      {
+                                        "tag": "reference",
+                                        "node": "L41",
+                                        "index": 873,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L45",
+                    "index": 916,
+                    "children": [
                       {
                         "tag": "stitch",
-                        "node": "L119",
-                        "index": 2524,
+                        "node": "L45",
+                        "index": 916,
                         "children": []
-                      },
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L46",
+                    "index": 943,
+                    "children": [
                       {
                         "tag": "declaration",
-                        "node": "L120",
-                        "index": 2561,
+                        "node": "L46",
+                        "index": 967,
                         "children": []
                       },
                       {
-                        "tag": "reference",
-                        "node": "L120",
-                        "index": 2579,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L121",
-                        "index": 2598,
-                        "children": []
-                      },
-                      {
-                        "tag": "reference",
-                        "node": "L121",
-                        "index": 2611,
-                        "children": []
-                      },
+                        "tag": "scope",
+                        "node": "L46",
+                        "index": 1000,
+                        "children": [
+                          {
+                            "tag": "statement",
+                            "node": "L47",
+                            "index": 1010,
+                            "children": []
+                          },
+                          {
+                            "tag": "statement",
+                            "node": "L48",
+                            "index": 1023,
+                            "children": [
+                              {
+                                "tag": "scope",
+                                "node": "L48",
+                                "index": 1029,
+                                "children": [
+                                  {
+                                    "tag": "statement",
+                                    "node": "L49",
+                                    "index": 1043,
+                                    "children": [
+                                      {
+                                        "tag": "stitch",
+                                        "node": "L49",
+                                        "index": 1043,
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "statement",
+                                    "node": "L50",
+                                    "index": 1068,
+                                    "children": [
+                                      {
+                                        "tag": "reference",
+                                        "node": "L50",
+                                        "index": 1068,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "tag": "statement",
+                            "node": "L52",
+                            "index": 1098,
+                            "children": [
+                              {
+                                "tag": "scope",
+                                "node": "L52",
+                                "index": 1104,
+                                "children": [
+                                  {
+                                    "tag": "statement",
+                                    "node": "L53",
+                                    "index": 1118,
+                                    "children": [
+                                      {
+                                        "tag": "stitch",
+                                        "node": "L53",
+                                        "index": 1118,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L57",
+                    "index": 1155,
+                    "children": [
                       {
                         "tag": "stitch",
-                        "node": "L123",
-                        "index": 2637,
+                        "node": "L57",
+                        "index": 1155,
                         "children": []
-                      },
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L58",
+                    "index": 1173,
+                    "children": [
                       {
-                        "tag": "reference",
-                        "node": "L124",
-                        "index": 2650,
+                        "tag": "declaration",
+                        "node": "L58",
+                        "index": 1177,
                         "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L60",
+                    "index": 1207,
+                    "children": [
+                      {
+                        "tag": "function",
+                        "node": "L60",
+                        "index": 1207,
+                        "children": [
+                          {
+                            "tag": "declaration",
+                            "node": "L60",
+                            "index": 1212,
+                            "children": []
+                          },
+                          {
+                            "tag": "parameters",
+                            "node": "L60",
+                            "index": 1219,
+                            "children": []
+                          },
+                          {
+                            "tag": "scope",
+                            "node": "L61",
+                            "index": 1226,
+                            "children": [
+                              {
+                                "tag": "statement",
+                                "node": "L62",
+                                "index": 1236,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L62",
+                                    "index": 1240,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L63",
+                                "index": 1263,
+                                "children": [
+                                  {
+                                    "tag": "reference",
+                                    "node": "L63",
+                                    "index": 1267,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L63",
+                                    "index": 1289,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "scope",
+                                    "node": "L64",
+                                    "index": 1307,
+                                    "children": [
+                                      {
+                                        "tag": "statement",
+                                        "node": "L65",
+                                        "index": 1321,
+                                        "children": [
+                                          {
+                                            "tag": "declaration",
+                                            "node": "L65",
+                                            "index": 1325,
+                                            "children": []
+                                          },
+                                          {
+                                            "tag": "reference",
+                                            "node": "L65",
+                                            "index": 1339,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L67",
+                                        "index": 1373,
+                                        "children": [
+                                          {
+                                            "tag": "stitch",
+                                            "node": "L67",
+                                            "index": 1373,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L69",
+                                        "index": 1396,
+                                        "children": [
+                                          {
+                                            "tag": "stitch",
+                                            "node": "L69",
+                                            "index": 1396,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L70",
+                                        "index": 1417,
+                                        "children": [
+                                          {
+                                            "tag": "declaration",
+                                            "node": "L70",
+                                            "index": 1434,
+                                            "children": []
+                                          },
+                                          {
+                                            "tag": "reference",
+                                            "node": "L70",
+                                            "index": 1458,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L72",
+                                        "index": 1490,
+                                        "children": [
+                                          {
+                                            "tag": "stitch",
+                                            "node": "L72",
+                                            "index": 1490,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L73",
+                                        "index": 1511,
+                                        "children": [
+                                          {
+                                            "tag": "declaration",
+                                            "node": "L73",
+                                            "index": 1517,
+                                            "children": []
+                                          },
+                                          {
+                                            "tag": "reference",
+                                            "node": "L73",
+                                            "index": 1534,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L75",
+                                        "index": 1559,
+                                        "children": [
+                                          {
+                                            "tag": "stitch",
+                                            "node": "L75",
+                                            "index": 1559,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L76",
+                                        "index": 1599,
+                                        "children": [
+                                          {
+                                            "tag": "declaration",
+                                            "node": "L76",
+                                            "index": 1616,
+                                            "children": []
+                                          },
+                                          {
+                                            "tag": "reference",
+                                            "node": "L76",
+                                            "index": 1641,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L77",
+                                        "index": 1676,
+                                        "children": [
+                                          {
+                                            "tag": "declaration",
+                                            "node": "L77",
+                                            "index": 1682,
+                                            "children": []
+                                          },
+                                          {
+                                            "tag": "reference",
+                                            "node": "L77",
+                                            "index": 1700,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L78",
+                                        "index": 1728,
+                                        "children": [
+                                          {
+                                            "tag": "reference",
+                                            "node": "L78",
+                                            "index": 1728,
+                                            "children": []
+                                          },
+                                          {
+                                            "tag": "reference",
+                                            "node": "L78",
+                                            "index": 1768,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "statement",
+                                        "node": "L80",
+                                        "index": 1799,
+                                        "children": [
+                                          {
+                                            "tag": "stitch",
+                                            "node": "L80",
+                                            "index": 1799,
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L84",
+                    "index": 1825,
+                    "children": [
+                      {
+                        "tag": "function",
+                        "node": "L84",
+                        "index": 1825,
+                        "children": [
+                          {
+                            "tag": "declaration",
+                            "node": "L84",
+                            "index": 1830,
+                            "children": []
+                          },
+                          {
+                            "tag": "parameters",
+                            "node": "L84",
+                            "index": 1837,
+                            "children": []
+                          },
+                          {
+                            "tag": "scope",
+                            "node": "L85",
+                            "index": 1844,
+                            "children": [
+                              {
+                                "tag": "statement",
+                                "node": "L86",
+                                "index": 1854,
+                                "children": [
+                                  {
+                                    "tag": "reference",
+                                    "node": "L86",
+                                    "index": 1854,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L89",
+                    "index": 1890,
+                    "children": [
+                      {
+                        "tag": "stitch",
+                        "node": "L89",
+                        "index": 1890,
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L90",
+                    "index": 1899,
+                    "children": [
+                      {
+                        "tag": "function",
+                        "node": "L90",
+                        "index": 1899,
+                        "children": [
+                          {
+                            "tag": "declaration",
+                            "node": "L90",
+                            "index": 1904,
+                            "children": []
+                          },
+                          {
+                            "tag": "parameters",
+                            "node": "L90",
+                            "index": 1920,
+                            "children": []
+                          },
+                          {
+                            "tag": "scope",
+                            "node": "L91",
+                            "index": 1927,
+                            "children": [
+                              {
+                                "tag": "statement",
+                                "node": "L92",
+                                "index": 1937,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L92",
+                                    "index": 1937,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L93",
+                                "index": 1954,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L93",
+                                    "index": 1960,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L93",
+                                    "index": 1977,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L95",
+                                "index": 1998,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L95",
+                                    "index": 1998,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L96",
+                                "index": 2015,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L96",
+                                    "index": 2021,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L96",
+                                    "index": 2032,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L97",
+                                "index": 2056,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L97",
+                                    "index": 2062,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L98",
+                                "index": 2084,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L98",
+                                    "index": 2090,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L98",
+                                    "index": 2102,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L98",
+                                    "index": 2113,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L100",
+                                "index": 2132,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L100",
+                                    "index": 2132,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L101",
+                                "index": 2162,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L101",
+                                    "index": 2168,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L101",
+                                    "index": 2186,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L102",
+                                "index": 2205,
+                                "children": [
+                                  {
+                                    "tag": "reference",
+                                    "node": "L102",
+                                    "index": 2205,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L102",
+                                    "index": 2218,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L104",
+                                "index": 2244,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L104",
+                                    "index": 2244,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L105",
+                                "index": 2257,
+                                "children": [
+                                  {
+                                    "tag": "reference",
+                                    "node": "L105",
+                                    "index": 2257,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L108",
+                    "index": 2279,
+                    "children": [
+                      {
+                        "tag": "stitch",
+                        "node": "L108",
+                        "index": 2279,
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "statement",
+                    "node": "L109",
+                    "index": 2288,
+                    "children": [
+                      {
+                        "tag": "function",
+                        "node": "L109",
+                        "index": 2288,
+                        "children": [
+                          {
+                            "tag": "declaration",
+                            "node": "L109",
+                            "index": 2293,
+                            "children": []
+                          },
+                          {
+                            "tag": "parameters",
+                            "node": "L109",
+                            "index": 2309,
+                            "children": []
+                          },
+                          {
+                            "tag": "scope",
+                            "node": "L110",
+                            "index": 2316,
+                            "children": [
+                              {
+                                "tag": "statement",
+                                "node": "L111",
+                                "index": 2326,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L111",
+                                    "index": 2326,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L112",
+                                "index": 2344,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L112",
+                                    "index": 2350,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L112",
+                                    "index": 2367,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L114",
+                                "index": 2388,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L114",
+                                    "index": 2388,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L115",
+                                "index": 2406,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L115",
+                                    "index": 2412,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L115",
+                                    "index": 2423,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L116",
+                                "index": 2447,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L116",
+                                    "index": 2453,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L117",
+                                "index": 2476,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L117",
+                                    "index": 2482,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L117",
+                                    "index": 2494,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L117",
+                                    "index": 2505,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L119",
+                                "index": 2524,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L119",
+                                    "index": 2524,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L120",
+                                "index": 2555,
+                                "children": [
+                                  {
+                                    "tag": "declaration",
+                                    "node": "L120",
+                                    "index": 2561,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L120",
+                                    "index": 2579,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L121",
+                                "index": 2598,
+                                "children": [
+                                  {
+                                    "tag": "reference",
+                                    "node": "L121",
+                                    "index": 2598,
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "reference",
+                                    "node": "L121",
+                                    "index": 2611,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L123",
+                                "index": 2637,
+                                "children": [
+                                  {
+                                    "tag": "stitch",
+                                    "node": "L123",
+                                    "index": 2637,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "statement",
+                                "node": "L124",
+                                "index": 2650,
+                                "children": [
+                                  {
+                                    "tag": "reference",
+                                    "node": "L124",
+                                    "index": 2650,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   }
