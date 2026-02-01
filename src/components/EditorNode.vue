@@ -5,13 +5,13 @@ import { UNIT_X, UNIT_Y, UNIT_X_PX, UNIT_Y_PX } from '../units'
 
 const props = defineProps<{
   graphNode: GraphNode
-  dragX: number
-  dragY: number
-  dragging: boolean
+  grabX: number
+  grabY: number
+  grabbing: boolean
 }>()
 
 const emit = defineEmits<{
-  drag: [key: string, x: number, y: number]
+  grab: [key: string, x: number, y: number]
 }>()
 
 const collapse = computed(
@@ -26,23 +26,23 @@ const alignClasses = computed(() => ({
 const transformStyle = computed(() =>
   props.graphNode.coordinates
     ? {
-        transform: `translate(${props.graphNode.coordinates[0] * UNIT_X + props.dragX}px, ${props.graphNode.coordinates[1] * UNIT_Y + props.dragY}px)`,
+        transform: `translate(${props.graphNode.coordinates[0] * UNIT_X + props.grabX}px, ${props.graphNode.coordinates[1] * UNIT_Y + props.grabY}px)`,
       }
     : {},
 )
 
-const shadowOffsetX = computed(() => `${Math.round(props.dragX / UNIT_X) * UNIT_X - props.dragX}px`)
-const shadowOffsetY = computed(() => `${Math.round(props.dragY / UNIT_Y) * UNIT_Y - props.dragY}px`)
+const shadowOffsetX = computed(() => `${Math.round(props.grabX / UNIT_X) * UNIT_X - props.grabX}px`)
+const shadowOffsetY = computed(() => `${Math.round(props.grabY / UNIT_Y) * UNIT_Y - props.grabY}px`)
 
 function handleMousedown(e: MouseEvent) {
-  emit('drag', props.graphNode.key, e.clientX, e.clientY)
+  emit('grab', props.graphNode.key, e.clientX, e.clientY)
 }
 </script>
 
 <template>
   <div
     class="wrapper"
-    :class="{ dragging: props.dragging }"
+    :class="{ grabbing: props.grabbing }"
     :style="transformStyle"
     @mousedown="handleMousedown"
   >
@@ -99,7 +99,7 @@ function handleMousedown(e: MouseEvent) {
   --background: var(--vscode-button-secondaryHoverBackground);
 }
 
-.wrapper.dragging {
+.wrapper.grabbing {
   cursor: grabbing;
   --foreground: var(--vscode-list-activeSelectionForeground);
   z-index: 10;

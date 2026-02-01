@@ -16,12 +16,12 @@ watchDeep(state, (newState) => {
 const graphNodes = ref<Record<string, GraphNode>>({})
 const graphLinks = ref<Record<string, GraphLink>>({})
 
-const graphNodesDrag = ref<Record<string, [number, number]>>({})
+const graphNodesGrab = ref<Record<string, [number, number]>>({})
 const graphNodesToFlush: string[] = []
 
 function flushGraphNodes() {
   for (const key of graphNodesToFlush) {
-    graphNodesDrag.value[key] = [0, 0]
+    graphNodesGrab.value[key] = [0, 0]
   }
 }
 
@@ -40,27 +40,27 @@ useEventListener(window, 'message', (event) => {
   }
 })
 
-const isDraggingNode = ref('')
+const isGrabbingNode = ref('')
 let lastX = 0
 let lastY = 0
 
-function onDragNode(key: string, x: number, y: number) {
-  isDraggingNode.value = key
+function onGrabNode(key: string, x: number, y: number) {
+  isGrabbingNode.value = key
   lastX = x
   lastY = y
 }
 
 useEventListener(window, 'mousemove', (e: MouseEvent) => {
-  if (!isDraggingNode.value) return
+  if (!isGrabbingNode.value) return
 
   const dx = e.clientX - lastX
   const dy = e.clientY - lastY
 
-  const [dragX, dragY] = graphNodesDrag.value[isDraggingNode.value] ?? [0, 0]
+  const [grabX, grabY] = graphNodesGrab.value[isGrabbingNode.value] ?? [0, 0]
 
-  graphNodesDrag.value[isDraggingNode.value] = [
-    dragX + dx / state.value.scale,
-    dragY + dy / state.value.scale,
+  graphNodesGrab.value[isGrabbingNode.value] = [
+    grabX + dx / state.value.scale,
+    grabY + dy / state.value.scale,
   ]
 
   lastX = e.clientX
@@ -68,45 +68,44 @@ useEventListener(window, 'mousemove', (e: MouseEvent) => {
 })
 
 useEventListener(window, 'mouseup', () => {
-  if (!isDraggingNode.value) return
+  if (!isGrabbingNode.value) return
 
-  const [dragX, dragY] = graphNodesDrag.value[isDraggingNode.value] ?? [0, 0]
-  graphNodesToFlush.push(isDraggingNode.value)
+  const [grabX, grabY] = graphNodesGrab.value[isGrabbingNode.value] ?? [0, 0]
+  graphNodesToFlush.push(isGrabbingNode.value)
 
-  const graphNode = graphNodes.value[isDraggingNode.value]
+  const graphNode = graphNodes.value[isGrabbingNode.value]
   const [baseX, baseY] = graphNode?.coordinates ?? [0, 0]
 
-  const deltaX = Math.round(dragX / UNIT_X)
-  const deltaY = Math.round(dragY / UNIT_Y)
+  const deltaX = Math.round(grabX / UNIT_X)
+  const deltaY = Math.round(grabY / UNIT_Y)
 
   const newX = baseX + deltaX
   const newY = baseY + deltaY
 
   const taken = `${newX} ${newY}` in graphNodes.value
   if (!taken) {
-    send({ type: 'move', graphNodeKey: isDraggingNode.value, newCoordinates: [newX, newY] })
+    send({ type: 'move', graphNodeKey: isGrabbingNode.value, newCoordinates: [newX, newY] })
   } else {
     flushGraphNodes()
   }
 
-  isDraggingNode.value = ''
+  isGrabbingNode.value = ''
 })
 
 function getPixelCoordinates(
   { key, coordinates: [x, y], index }: GraphNodePortLocation,
   margin: number,
-  drag: Record<string, [number, number]>,
 ): [number, number] {
-  const [dragX, dragY] = drag[key] ?? [0, 0]
-  return [x * UNIT_X + margin + dragX, (y + index + 8.5) * UNIT_Y + dragY]
+  const [grabX, grabY] = graphNodesGrab.value[key] ?? [0, 0]
+  return [x * UNIT_X + margin + grabX, (y + index + 8.5) * UNIT_Y + grabY]
 }
 
 const nodeMargin = 2 * UNIT_Y
 const connections = computed(() =>
   Object.entries(graphLinks.value).flatMap(([key, graphLink]) =>
     graphLink.targets.map((targetLocation, i) => {
-      let origin = getPixelCoordinates(graphLink.origin, nodeMargin, graphNodesDrag.value)
-      let target = getPixelCoordinates(targetLocation, nodeMargin, graphNodesDrag.value)
+      let origin = getPixelCoordinates(graphLink.origin, nodeMargin)
+      let target = getPixelCoordinates(targetLocation, nodeMargin)
 
       if (graphLink.type === 'data') {
         origin[0] += UNIT_X - 2 * nodeMargin
@@ -138,10 +137,10 @@ const connections = computed(() =>
       v-for="[k, v] in Object.entries(graphNodes)"
       :key="k"
       :graph-node="v"
-      :dragX="graphNodesDrag[k]?.[0] ?? 0"
-      :dragY="graphNodesDrag[k]?.[1] ?? 0"
-      :dragging="k === isDraggingNode"
-      @drag="onDragNode"
+      :grabX="graphNodesGrab[k]?.[0] ?? 0"
+      :grabY="graphNodesGrab[k]?.[1] ?? 0"
+      :grabbing="k === isGrabbingNode"
+      @grab="onGrabNode"
     />
   </EditorRoot>
 </template>
