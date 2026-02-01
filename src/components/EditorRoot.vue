@@ -3,7 +3,9 @@ import { computed, useTemplateRef } from 'vue'
 import { useEventListener } from '@vueuse/core'
 
 import type { ViewportState } from '../vscode'
+import { UNIT_X, UNIT_Y } from '../units'
 
+const props = defineProps<{ showColumns?: boolean }>()
 const model = defineModel<ViewportState>({ required: true })
 
 const viewport = useTemplateRef('viewport')
@@ -71,10 +73,18 @@ useEventListener(
   },
   { passive: false },
 )
+
+const backgroundPosition = computed(
+  () =>
+    `${model.value.translateX}px ${model.value.translateY + UNIT_Y * 0.43 * model.value.scale}px`,
+)
+const backgroundSize = computed(
+  () => `${UNIT_X * model.value.scale}px ${UNIT_Y * model.value.scale}px`,
+)
 </script>
 
 <template>
-  <div ref="viewport" class="viewport">
+  <div ref="viewport" class="viewport" :class="{ showColumns: props.showColumns }">
     <div ref="canvas" class="canvas" :style="transformStyle">
       <slot></slot>
     </div>
@@ -90,6 +100,23 @@ useEventListener(
   bottom: 0;
   overflow: hidden;
   cursor: move;
+}
+
+.viewport.showColumns {
+  --background: var(--vscode-editor-background);
+  --backgroundLine: var(--vscode-button-secondaryBackground);
+
+  background-position: v-bind(backgroundPosition);
+  background-size: v-bind(backgroundSize);
+  background-image:
+    linear-gradient(
+      to right,
+      var(--background) 20%,
+      transparent 20%,
+      transparent 80%,
+      var(--background) 80%
+    ),
+    linear-gradient(to bottom, var(--backgroundLine) 2px, transparent 2px);
 }
 
 .canvas {
