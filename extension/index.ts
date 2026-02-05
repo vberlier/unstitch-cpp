@@ -141,6 +141,10 @@ const { activate, deactivate } = defineExtension((context) => {
           case 'move':
             updateGraphNodeCoordinates(message.graphNodeKey, message.newCoordinates)
             break
+          case 'connect:data':
+          case 'connect:execution':
+            console.log(message)
+            break
         }
       }),
     )

@@ -7,6 +7,18 @@ const props = defineProps<{
   type: 'data' | 'execution'
   origin: [number, number]
   target: [number, number]
+  fromLocation?: GraphNodePortLocation
+  toLocation?: GraphNodePortLocation
+}>()
+
+const emit = defineEmits<{
+  grab: [
+    type: 'data' | 'execution',
+    fromLocation: GraphNodePortLocation,
+    toLocation: GraphNodePortLocation,
+    x: number,
+    y: number,
+  ]
 }>()
 
 const path = computed(() => {
@@ -17,10 +29,16 @@ const path = computed(() => {
 
   return `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`
 })
+
+function grab(event: MouseEvent) {
+  if (props.fromLocation && props.toLocation) {
+    emit('grab', props.type, props.fromLocation, props.toLocation, event.clientX, event.clientY)
+  }
+}
 </script>
 
 <template>
-  <path class="interact" :d="path" />
+  <path class="interact" :d="path" @mousedown.stop="grab($event)" />
   <path class="path" :class="[props.type]" :d="path" />
 </template>
 
@@ -41,7 +59,8 @@ const path = computed(() => {
   fill: none;
   stroke: transparent;
   stroke-width: v-bind(UNIT_Y_PX);
-  cursor: pointer;
+  stroke-linecap: round;
+  cursor: auto;
 }
 
 .interact:hover + .path {

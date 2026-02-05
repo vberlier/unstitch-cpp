@@ -35,6 +35,15 @@ type WebviewMessage =
       graphNodeKey: string
       newCoordinates: [number, number]
     }
+  | {
+      type: 'connect:data' | 'connect:execution'
+      fromGraphNodeKey: string
+      fromPortIndex: number
+      toGraphNodeKey?: string
+      toPortIndex?: number
+      replaceGraphNodeKey?: string
+      replacePortIndex?: number
+    }
 
 type ExtensionMessage = {
   type: 'update'

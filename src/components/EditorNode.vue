@@ -12,6 +12,8 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   grab: [key: string, x: number, y: number]
+  grabPort: [key: string, index: number, side: 'inputs' | 'outputs', x: number, y: number]
+  connectPort: [key: string, index: number, side: 'inputs' | 'outputs']
 }>()
 
 const collapse = computed(
@@ -34,8 +36,12 @@ const transformStyle = computed(() =>
 const shadowOffsetX = computed(() => `${Math.round(props.grabX / UNIT_X) * UNIT_X - props.grabX}px`)
 const shadowOffsetY = computed(() => `${Math.round(props.grabY / UNIT_Y) * UNIT_Y - props.grabY}px`)
 
-function handleMousedown(e: MouseEvent) {
-  emit('grab', props.graphNode.key, e.clientX, e.clientY)
+function grabPort(event: MouseEvent, index: number, side: 'inputs' | 'outputs') {
+  emit('grabPort', props.graphNode.key, index, side, event.clientX, event.clientY)
+}
+
+function connectPort(event: MouseEvent, index: number, side: 'inputs' | 'outputs') {
+  emit('connectPort', props.graphNode.key, index, side)
 }
 </script>
 
@@ -44,7 +50,7 @@ function handleMousedown(e: MouseEvent) {
     class="wrapper"
     :class="{ grabbing: props.grabbing }"
     :style="transformStyle"
-    @mousedown="handleMousedown"
+    @mousedown.stop="emit('grab', props.graphNode.key, $event.clientX, $event.clientY)"
   >
     <div v-if="collapse" class="content collapse" :class="alignClasses">
       {{ props.graphNode.title }}
@@ -72,12 +78,24 @@ function handleMousedown(e: MouseEvent) {
       </div>
     </div>
     <div class="inputPorts">
-      <div v-for="(input, i) in props.graphNode.inputs" class="inputPort" :key="i">
+      <div
+        v-for="(input, i) in props.graphNode.inputs"
+        class="inputPort"
+        :key="i"
+        @mousedown.stop="grabPort($event, i, 'inputs')"
+        @mouseup.stop="connectPort($event, i, 'inputs')"
+      >
         <div :class="input.type"></div>
       </div>
     </div>
     <div class="outputPorts">
-      <div v-for="(output, i) in props.graphNode.outputs" class="outputPort" :key="i">
+      <div
+        v-for="(output, i) in props.graphNode.outputs"
+        class="outputPort"
+        :key="i"
+        @mousedown.stop="grabPort($event, i, 'outputs')"
+        @mouseup.stop="connectPort($event, i, 'outputs')"
+      >
         <div :class="output.type"></div>
       </div>
     </div>
