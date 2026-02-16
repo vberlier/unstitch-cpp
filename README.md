@@ -17,10 +17,10 @@ Basic prototype for a visual scripting tool backed by a textual data model. Node
 float Hello()
 {
     //// 2 1
-    float foo = DoSomething();
+    float foo_0Link = DoSomething();
 
     //// 3 1
-    float bar = DoSomethingElse(foo);
+    float bar_0Link = DoSomethingElse(foo_0Link);
 }
 ```
 

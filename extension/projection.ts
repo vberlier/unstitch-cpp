@@ -30,6 +30,7 @@ export interface Reference {
   item: Outline
   stitch?: Stitch
   declaration?: Declaration
+  within?: Declaration
 }
 
 export interface Declaration {
@@ -67,6 +68,7 @@ function resolveOutline(
   stitchIndex: Map<string, Stitch[]>,
   scope: Record<string, number> = {},
   outerStitch?: Stitch,
+  within?: Declaration,
 ) {
   scope = { ...scope }
 
@@ -118,12 +120,13 @@ function resolveOutline(
           stitchIndex,
           scope,
           currentStitch,
+          resolved,
         )
       }
     } else if (item.tag === 'reference') {
       const index = scope[item.node.text]
       if (index !== undefined) {
-        const resolved: Reference = { type: 'reference', item }
+        const resolved: Reference = { type: 'reference', item, within }
         resolved.declaration = declarations.get(index)!
         resolved.declaration.references.push(resolved)
         references.set(item.index, index)
@@ -169,7 +172,16 @@ function resolveOutline(
       }
       currentStitch = stitch
     } else {
-      resolveOutline(item, declarations, references, stitches, stitchIndex, scope, currentStitch)
+      resolveOutline(
+        item,
+        declarations,
+        references,
+        stitches,
+        stitchIndex,
+        scope,
+        currentStitch,
+        within,
+      )
     }
   }
 
@@ -185,6 +197,13 @@ function getDeclarationInitValue(declaratorNode: Node) {
   }
   if (node?.type === 'init_declarator') {
     return node.childForFieldName('value')
+  }
+}
+
+function getReturnValue(functionNode: Node) {
+  const statement = functionNode.childForFieldName('body')?.lastNamedChild
+  if (statement?.type === 'return_statement') {
+    return statement.firstNamedChild
   }
 }
 
@@ -211,42 +230,7 @@ function buildGraph(graphNodes: Map<string, GraphNode>, stitch: Stitch): GraphNo
     const thing = stitch.inner[i]
     switch (thing.type) {
       case 'declaration':
-        if (thing.unmangled.tag === 'Internal') {
-          break
-        }
-
-        if (thing.unmangled.tag === 'Input') {
-          const initValue = getDeclarationInitValue(thing.item.node)
-
-          const nextThing = stitch.inner[i + 1]
-          if (
-            initValue &&
-            nextThing?.type === 'reference' &&
-            nextThing.declaration &&
-            nextThing.declaration.stitch &&
-            nextThing.declaration.stitch !== stitch &&
-            nextThing.declaration.unmangled.tag !== 'Internal' &&
-            nextThing.item.node.equals(initValue)
-          ) {
-            graphNode.inputs.push({
-              type: 'data',
-              name: thing.unmangled.name,
-              tag: thing.unmangled.tag,
-              link: `${nextThing.declaration.stitch.key} ${nextThing.declaration.identifier}`,
-            })
-            i++
-            break
-          }
-
-          graphNode.inputs.push({
-            type: 'data',
-            name: thing.unmangled.name,
-            tag: thing.unmangled.tag,
-            default: initValue?.text,
-          })
-          break
-        }
-
+        // infer title
         if (!graphNode.title) {
           if (thing.item.parent?.tag === 'function') {
             const definition = thing.item.parent.node
@@ -255,7 +239,7 @@ function buildGraph(graphNodes: Map<string, GraphNode>, stitch: Stitch): GraphNo
               definition.childForFieldName('body')!.startIndex - definition.startIndex,
             )
             graphNode.title = sloppyUnmangle(text.trim())
-          } else {
+          } else if (thing.unmangled.tag === 'Link' || thing.unmangled.tag === 'LinkPure') {
             const text = getDeclarationInitValue(thing.item.node)?.text
             if (text) {
               graphNode.title = sloppyUnmangle(text)
@@ -263,20 +247,65 @@ function buildGraph(graphNodes: Map<string, GraphNode>, stitch: Stitch): GraphNo
           }
         }
 
-        if (thing.item.parent?.tag === 'function') {
-          graphNode.inputs.push({
-            type: 'execution',
-            name: thing.unmangled.name,
-            tag: thing.unmangled.tag,
-            link: `${stitch.key} ${thing.identifier}`,
-          })
-        } else {
-          graphNode.outputs.push({
-            type: 'data',
-            name: thing.unmangled.name,
-            tag: thing.unmangled.tag,
-            link: `${stitch.key} ${thing.identifier}`,
-          })
+        if (thing.unmangled.tag === 'Link' || thing.unmangled.tag === 'LinkPure') {
+          // create link
+          if (thing.item.parent?.tag === 'function') {
+            graphNode.inputs.push({
+              type: 'execution',
+              name: thing.unmangled.name,
+              tag: thing.unmangled.tag,
+              link: `${stitch.key}&${thing.identifier}`,
+            })
+          } else {
+            graphNode.outputs.push({
+              type: 'data',
+              name: thing.unmangled.name,
+              tag: thing.unmangled.tag,
+              link: `${stitch.key}&${thing.identifier}`,
+            })
+          }
+        }
+
+        const initValue = getDeclarationInitValue(thing.item.node)
+        const nextThing = stitch.inner[i + 1]
+        const nextNode = nextThing?.item.node
+        const isAlias = initValue && nextNode?.equals(initValue)
+        if (
+          initValue &&
+          nextThing?.type === 'reference' &&
+          nextThing.declaration &&
+          nextThing.declaration.stitch &&
+          (isAlias ||
+            (nextThing.declaration.item.parent?.tag === 'function' &&
+              nextNode.parent?.type === 'call_expression' &&
+              nextNode.parent.childForFieldName('function')?.equals(nextNode) &&
+              nextNode.parent.equals(initValue)))
+        ) {
+          switch (nextThing.declaration.unmangled.tag) {
+            case 'Link':
+            case 'LinkPure':
+              if (nextThing.declaration.stitch !== stitch) {
+                const returnTag = isAlias ? '' : '&Return'
+                graphNode.inputs.push({
+                  type: 'data',
+                  name: thing.unmangled.name,
+                  tag: thing.unmangled.tag,
+                  link: `${nextThing.declaration.stitch.key}&${nextThing.declaration.identifier}${returnTag}`,
+                })
+                i++
+              }
+              break
+            case 'LinkDefault':
+              const defaultValue = getDeclarationInitValue(nextThing.declaration.item.node)?.text
+              graphNode.inputs.push({
+                type: 'data',
+                name: thing.unmangled.name,
+                tag: thing.unmangled.tag,
+                default: defaultValue && sloppyUnmangle(defaultValue),
+              })
+              i++
+              break
+          }
         }
         break
 
@@ -285,22 +314,39 @@ function buildGraph(graphNodes: Map<string, GraphNode>, stitch: Stitch): GraphNo
           !thing.declaration ||
           !thing.declaration.stitch ||
           thing.declaration.stitch === stitch ||
-          thing.declaration.unmangled.tag === 'Internal'
+          (thing.declaration.unmangled.tag !== 'Link' &&
+            thing.declaration.unmangled.tag !== 'LinkPure')
         ) {
           break
+        }
+        if (
+          thing.within?.stitch &&
+          thing.item.parent?.tag === 'statement' &&
+          thing.item.parent.node.type === 'return_statement'
+        ) {
+          graphNode.outputs.push({
+            type: 'data',
+            name: thing.within.unmangled.name,
+            tag: thing.within.unmangled.tag,
+            link: `${thing.within.stitch.key}&${thing.within.identifier}&Return`,
+          })
+          // infer title
+          if (!graphNode.title) {
+            graphNode.title = 'Return'
+          }
         }
         if (thing.declaration.item.parent?.tag === 'function') {
           graphNode.outputs.push({
             type: 'execution',
             tag: thing.declaration.unmangled.tag,
-            link: `${thing.declaration.stitch.key} ${thing.declaration.identifier}`,
+            link: `${thing.declaration.stitch.key}&${thing.declaration.identifier}`,
           })
         } else {
           graphNode.inputs.push({
             type: 'data',
             name: thing.declaration.unmangled.name,
             tag: thing.declaration.unmangled.tag,
-            link: `${thing.declaration.stitch.key} ${thing.declaration.identifier}`,
+            link: `${thing.declaration.stitch.key}&${thing.declaration.identifier}`,
           })
         }
         break
@@ -335,7 +381,7 @@ function buildGraph(graphNodes: Map<string, GraphNode>, stitch: Stitch): GraphNo
     if (stitch.outer) {
       let pure = false
       for (const output of graphNode.outputs) {
-        if (output.type === 'data' && output.tag === 'Pure') {
+        if (output.type === 'data' && output.tag === 'LinkPure') {
           pure = true
           break
         }
@@ -384,6 +430,15 @@ function cleanGraph(graphNodes: Map<string, GraphNode>) {
           break
         }
       }
+      for (const output of graphNode.outputs) {
+        if (output.type === 'data' && output.link?.endsWith('&Return')) {
+          const target = graphNode.inputs.filter((input) => input.type === 'data')[0]
+          if (target?.link) {
+            remap.set(output.link, target.link)
+          }
+          break
+        }
+      }
     }
   }
 
@@ -395,6 +450,11 @@ function cleanGraph(graphNodes: Map<string, GraphNode>) {
     for (const output of graphNode.outputs) {
       if (output.type === 'execution' && output.link && remap.has(output.link)) {
         output.link = remap.get(output.link)
+      }
+    }
+    for (const input of graphNode.inputs) {
+      if (input.type === 'data' && input.link && remap.has(input.link)) {
+        input.link = remap.get(input.link)
       }
     }
   }

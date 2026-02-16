@@ -17,7 +17,10 @@ const emit = defineEmits<{
 }>()
 
 const collapse = computed(
-  () => props.graphNode.inputs.length === 0 && props.graphNode.outputs.length === 1,
+  () =>
+    props.graphNode.inputs.length === 0 &&
+    props.graphNode.outputs.length === 1 &&
+    props.graphNode.outputs[0]?.type === 'data',
 )
 
 const alignClasses = computed(() => ({

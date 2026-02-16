@@ -146,12 +146,21 @@ function onConnectPort(key: string, index: number, side: 'inputs' | 'outputs') {
         newConnection.value = undefined
       }
     } else {
+      let origin = [fromLocation.key, fromLocation.index] as const
+      let target = [key, index] as const
+      if (newConnection.value.backward) {
+        const temp = origin
+        origin = target
+        target = temp
+      }
+      const [fromGraphNodeKey, fromPortIndex] = origin
+      const [toGraphNodeKey, toPortIndex] = target
       send({
         type: `connect:${type}`,
-        fromGraphNodeKey: fromLocation.key,
-        fromPortIndex: fromLocation.index,
-        toGraphNodeKey: key,
-        toPortIndex: index,
+        fromGraphNodeKey,
+        fromPortIndex,
+        toGraphNodeKey,
+        toPortIndex,
         replaceGraphNodeKey: replaceLocation?.key,
         replacePortIndex: replaceLocation?.index,
       })

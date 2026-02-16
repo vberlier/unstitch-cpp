@@ -17,37 +17,37 @@ struct Example
     VehicleMovement m_VehicleMovement;
 
     //// 1 6 Keyboard "W"
-    KeyboardEventSubscriber keyboardEventSubscriber_0Internal{
+    KeyboardEventSubscriber keyboardEventSubscriber_0{
         'W',
         [this]{
             //// Pressed
-            MergeExecution_0();
+            Hoisted_0Link();
         },
         [this]{
             //// Released
-            MergeExecution_1();
+            Hoisted_1Link();
         },
     };
 
     //// 1 11 Keyboard "S"
-    KeyboardEventSubscriber keyboardEventSubscriber_1Internal{
+    KeyboardEventSubscriber keyboardEventSubscriber_1{
         'S',
         [this]{
             //// Pressed
-            MergeExecution_1();
+            Hoisted_1Link();
         },
         [this]{
             //// Released
-            MergeExecution_0();
+            Hoisted_0Link();
         },
     };
 
     //// 3 19 Keyboard "F"
-    KeyboardEventSubscriber keyboardEventSubscriber_2Internal{
+    KeyboardEventSubscriber keyboardEventSubscriber_2{
         'F',
         [this]{
             //// Pressed
-            Reset_0();
+            Reset_0Link();
         },
         [this]{
             //// Released
@@ -55,72 +55,79 @@ struct Example
     };
 
     //// 4 9 Do N
-    int m_Counter_0Internal = 0;
+    int m_Counter = 0;
 
-    void Enter_0()
+    void Enter_0Link()
     {
-        int n_0Input = 20;
-        if (m_Counter_0Internal < n_0Input)
+        int n_0LinkDefault = 20;
+        int n = n_0LinkDefault;
+        if (m_Counter < n)
         {
-            int counter_0 = ++m_Counter_0Internal;
+            int counter_0Link = ++m_Counter;
 
             //// Exit
 
             //// 4 1
-            VehicleMovement& vehicleMovement_0Pure = m_VehicleMovement;
+            VehicleMovement& vehicleMovement_0LinkPure = m_VehicleMovement;
 
             //// 4 4
-            float throttle_0Pure = m_Throttle;
+            float throttle_0LinkPure = m_Throttle;
 
             //// 5 8 Set Throttle Input
-            VehicleMovement& vehicleMovement_0Input = vehicleMovement_0Pure;
-            float throttle_0Input = throttle_0Pure;
-            vehicleMovement_0Input.SetThrottleInput(throttle_0Input);
+            VehicleMovement& vehicleMovement = vehicleMovement_0LinkPure;
+            float throttle = throttle_0LinkPure;
+            vehicleMovement.SetThrottleInput(throttle);
 
             ////
         }
     }
 
-    void Reset_0()
+    void Reset_0Link()
     {
-        m_Counter_0Internal = 0;
+        m_Counter = 0;
     }
 
     ////
-    void MergeExecution_0()
+    void Hoisted_0Link()
     {
-        //// 1 1
-        float throttle_0Pure = m_Throttle;
-
         //// 2 1
-        float a_0Input = throttle_0Pure;
-        float b_0Input = 1;
-        float sum_0Pure = a_0Input + b_0Input;
+        float a = Hoisted_2LinkPure();
+        float b_0LinkDefault = 1;
+        float b = b_0LinkDefault;
+        float sum_0LinkPure = a + b;
 
         //// 3 6 Set Throttle
-        float throttle_0Input = sum_0Pure;
-        m_Throttle = throttle_0Input;
+        float throttle = sum_0LinkPure;
+        m_Throttle = throttle;
 
         ////
-        Enter_0();
+        Enter_0Link();
     }
 
     ////
-    void MergeExecution_1()
+    void Hoisted_1Link()
     {
-        //// 1 17
-        float throttle_0Pure = m_Throttle;
-
         //// 2 17
-        float a_0Input = throttle_0Pure;
-        float b_0Input = -1;
-        float sum_0Pure = a_0Input + b_0Input;
+        float a = Hoisted_2LinkPure();
+        float b_0LinkDefault = -1;
+        float b = b_0LinkDefault;
+        float sum_0LinkPure = a + b;
 
         //// 3 11 Set Throttle
-        float throttle_0Input = sum_0Pure;
-        m_Throttle = throttle_0Input;
+        float throttle = sum_0LinkPure;
+        m_Throttle = throttle;
 
         ////
-        Enter_0();
+        Enter_0Link();
+    }
+
+    ////
+    float Hoisted_2LinkPure()
+    {
+        //// 1 1
+        float throttle_0LinkPure = m_Throttle;
+
+        ////
+        return throttle_0LinkPure;
     }
 };
