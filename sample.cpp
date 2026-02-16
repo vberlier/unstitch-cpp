@@ -5,5 +5,6 @@ float Hello()
     float foo_0Link = DoSomething();
 
     //// 3 1 
-    float bar_0Link = DoSomethingElse(foo_0Link);
+    float value = foo_0Link;
+    float bar_0Link = DoSomethingElse(value);
 }

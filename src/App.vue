@@ -141,7 +141,6 @@ function onConnectPort(key: string, index: number, side: 'inputs' | 'outputs') {
           replaceGraphNodeKey: replaceLocation.key,
           replacePortIndex: replaceLocation.index,
         })
-        newConnection.value = undefined // todo: flush on update
       } else {
         newConnection.value = undefined
       }
@@ -164,7 +163,6 @@ function onConnectPort(key: string, index: number, side: 'inputs' | 'outputs') {
         replaceGraphNodeKey: replaceLocation?.key,
         replacePortIndex: replaceLocation?.index,
       })
-      newConnection.value = undefined // todo: flush on update
     }
   }
 }

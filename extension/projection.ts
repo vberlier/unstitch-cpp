@@ -28,6 +28,7 @@ function buildOutline(root: Node, captures: QueryCapture[]) {
 export interface Reference {
   type: 'reference'
   item: Outline
+  scope: Record<string, number>
   stitch?: Stitch
   declaration?: Declaration
   within?: Declaration
@@ -37,6 +38,7 @@ export interface Declaration {
   type: 'declaration'
   item: Outline
   stitch?: Stitch
+  scope: Record<string, number>
   identifier: string
   unmangled: {
     name: string
@@ -95,6 +97,7 @@ function resolveOutline(
       const resolved: Declaration = {
         type: 'declaration',
         item,
+        scope,
         identifier,
         unmangled: { name, n, tag },
         references: [],
@@ -126,7 +129,7 @@ function resolveOutline(
     } else if (item.tag === 'reference') {
       const index = scope[item.node.text]
       if (index !== undefined) {
-        const resolved: Reference = { type: 'reference', item, within }
+        const resolved: Reference = { type: 'reference', item, scope, within }
         resolved.declaration = declarations.get(index)!
         resolved.declaration.references.push(resolved)
         references.set(item.index, index)
