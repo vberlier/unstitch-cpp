@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import { defineExtension, onScopeDispose, useDisposable } from 'reactive-vscode'
-import { Parser, Language, Tree, Edit, Query, Point } from 'web-tree-sitter'
+import { Parser, Language, Tree, Edit, Query, Point, Node } from 'web-tree-sitter'
 
 import { getWebviewHtml } from 'virtual:vscode'
 import { useCustomTextEditor } from './composables/useCustomTextEditor'
@@ -116,10 +116,24 @@ const { activate, deactivate } = defineExtension((context) => {
               (!r.stitch?.coordinates &&
                 (r.stitch?.predecessor?.key === targetKey || r.stitch?.outer?.key === targetKey)),
           )[n]
-          replaceWithDefault(edit, reference)
+          if (
+            reference.item.node.parent?.type === 'call_expression' &&
+            reference.item.node.parent.parent?.type === 'expression_statement' &&
+            reference.item.parent?.node.equals(reference.item.node.parent.parent)
+          ) {
+            removeStatement(edit, reference.item.parent.node)
+          } else {
+            replaceWithDefault(edit, reference)
+          }
           break
         }
       }
+    }
+
+    function removeStatement(edit: vscode.WorkspaceEdit, node: Node) {
+      const start = new vscode.Position(node.startPosition.row, 0)
+      const end = new vscode.Position(node.endPosition.row + 1, 0)
+      edit.replace(document.uri, new vscode.Range(start, end), '')
     }
 
     function replaceWithDefault(edit: vscode.WorkspaceEdit, reference: Reference) {
